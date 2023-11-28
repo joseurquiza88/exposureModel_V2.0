@@ -1,0 +1,70 @@
+
+# Calculo para estimar las concentraciones de PM2.5 a partir de AQI segun 
+# la API https://aqicn.org/calculator/es/
+calc_PM_concentration <- function(aqi_value){
+  df <- data.frame(conc_minima	= c(0,12.1,35.6,55.6,150.6,250.6,	350.6),
+                   conc_maxima	= c(12, 35.5, 55.5, 150.5, 250.5, 350.5, 500.5),
+                   aqi_minimo = c(0, 51, 101,	151, 201, 301,	401),
+                   aqi_maximo = c(50, 100, 150, 200, 300, 400,500))
+  match<- which(aqi_value >=  df$aqi_minimo & aqi_value <=  df$aqi_maximo)
+  concentration <- ((aqi_value - df$aqi_minimo[match]) / ((df$aqi_maximo[match] - df$aqi_minimo[match])/(df$conc_maxima[match]-df$conc_minima[match]))) + df$conc_minima[match]
+  df_concentration <- data.frame(concentration)
+  return(df_concentration)
+}
+aqi_value <- response_DockSud1_ARG[["data"]][["iaqi"]][["pm25"]][["v"]]
+
+
+calc_PM_concentration(aqi_value)
+# ---------------  ARG
+#Dock Sud 1, Acumar
+response_DockSud1_ARG <-fromJSON(content( GET("https://api.waqi.info/feed/@8397/?token=3a1671d7bc5576694e2d76e9fa12e8ee15913b0f"), as = "text"))
+response_DockSud1_ARG[["data"]][["city"]][["name"]]
+aqi_value <- response_DockSud1_ARG[["data"]][["iaqi"]][["pm25"]][["v"]]
+response_DockSud1_ARG[["data"]][["time"]][["s"]]
+response_DockSud1_ARG[["data"]][["time"]][["iso"]]
+response_DockSud1_ARG[["data"]][["time"]][["tz"]]
+
+
+
+# ---------------  SP
+# fijarse que es el aqi no concentraciones
+#São Sebastião, São Paulo
+response_SaoSebast_SP <-fromJSON(content( GET("https://api.waqi.info/feed/@14045/?token=3a1671d7bc5576694e2d76e9fa12e8ee15913b0f"), as = "text"))
+response_SaoSebast_SP[["data"]][["city"]][["name"]]
+
+#Guarulhos-Paço Municipal, São Paulo
+response_GuarulhosMun_SP <-fromJSON(content( GET("https://api.waqi.info/feed/@343/?token=3a1671d7bc5576694e2d76e9fa12e8ee15913b0f"), as = "text"))
+response_GuarulhosMun_SP[["data"]][["city"]][["name"]]
+response_GuarulhosMun_SP[["data"]][["iaqi"]][["pm25"]][["v"]]
+# ---------------  COL
+# fijarse que es el aqi no concentraciones
+#Carvajal - Sevillana, Bogota
+
+response_Carvajal_COL <-fromJSON(content( GET("https://api.waqi.info/feed/@8512/?token=3a1671d7bc5576694e2d76e9fa12e8ee15913b0f"), as = "text"))
+response_Carvajal_COL[["data"]][["city"]][["name"]]
+response_Carvajal_COL[["data"]][["iaqi"]][["pm25"]][["v"]]
+#Guaymaral, Bogota
+response_Guaymaral_COL <-fromJSON(content( GET("https://api.waqi.info/feed/@6229/?token=3a1671d7bc5576694e2d76e9fa12e8ee15913b0f"), as = "text"))
+response_Guaymaral_COL[["data"]][["city"]][["name"]]
+
+# ---------------  BOL
+# fijarse que es el aqi no concentraciones
+#Puente Piedra, Lima
+#http://calidaddelaire.minam.gob.pe/
+response_puentePiedra_BOL <-fromJSON(content( GET("https://api.waqi.info/feed/@7581/?token=3a1671d7bc5576694e2d76e9fa12e8ee15913b0f"), as = "text"))
+response_puentePiedra_BOL[["data"]][["city"]][["name"]]
+
+###San Martin De Porres, Lima
+response_SMartinPorres_BOL <-fromJSON(content( GET("https://api.waqi.info/feed/@7580/?token=3a1671d7bc5576694e2d76e9fa12e8ee15913b0f"), as = "text"))
+response_SMartinPorres_BOL[["data"]][["city"]][["name"]]
+
+#Carabayllo, Lima
+response_Carabayllo_BOL <-fromJSON(content( GET("https://api.waqi.info/feed/@7579/?token=3a1671d7bc5576694e2d76e9fa12e8ee15913b0f"), as = "text"))
+response_Carabayllo_BOL[["data"]][["city"]][["name"]]
+response_Carabayllo_BOL[["data"]][["iaqi"]][["pm25"]][["v"]]
+
+
+#Villa Maria Del Triunfo, Lima
+response_VMTriunfo_BOL <-fromJSON(content( GET("https://api.waqi.info/feed/@382/?token=3a1671d7bc5576694e2d76e9fa12e8ee15913b0f"), as = "text"))
+response_VMTriunfo_BOL[["data"]][["city"]][["name"]]
+response_VMTriunfo_BOL[["data"]][["iaqi"]][["pm25"]][["v"]]

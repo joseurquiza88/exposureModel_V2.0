@@ -1,0 +1,26 @@
+{
+    "id": "09A0F9CC",
+    "path": "D:/Josefina/paper_git/paper_exposure_model/code_02/04_hours_V02.R",
+    "project_path": "04_hours_V02.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1701199490505.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "111,0",
+        "scrollLine": "2"
+    },
+    "folds": "14|47|31|0|\n34|97|110|0|\n",
+    "lastKnownWriteTime": 1701182361,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1701199772174,
+    "read_only": false,
+    "read_only_alternatives": []
+}

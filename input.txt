@@ -1,0 +1,11 @@
+01. latitud = -32.891357,-32.948591
+02. longitud = -68.804999,-68.822955
+03. key = YOdvX5qKwpk9YRl9v0JzqC5qSYNOwbDc
+04. mode = car,car
+05. dir = D:/Josefina/paper_git/paper_exposure_model/grid_example
+06. selection = fast,fast
+07. departure_time_home = 2019-08-01 07:50:00 +01
+08. activity_minutes = 300
+09. pollutant = value
+10. gridID = GRI1_ID
+11. numero_destinos = 1

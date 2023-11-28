@@ -1,0 +1,11 @@
+01. latitud = 19.487855986559417,19.395467982052157
+02. longitud = -99.18184058444979,-99.13238396292456
+03. key = YOdvX5qKwpk9YRl9v0JzqC5qSYNOwbDc
+04. mode = car,car
+05. dir = D:/Josefina/paper_git/paper_exposure_model/gridMex
+06. selection = fast,fast
+07. departure_time_home = 2019-08-01 05:50:00
+08. activity_minutes = 200
+09. pollutant = value
+10. gridID = ID
+11. numero_destinos = 1

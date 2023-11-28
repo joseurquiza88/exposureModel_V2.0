@@ -1,0 +1,12 @@
+ruta_archivo <- "input.txt"
+
+plot <- data_input(file="D:/Josefina/paper_git/paper_exposure_model/code_02/input.txt")
+plot <- data_input(file="D:/Josefina/paper_git/paper_exposure_model/code_02/input_madrid.txt")
+htmlwidgets::saveWidget(plot , "func_alternative_trajectories_PLOT_paper_car_07_MADRID3.html")
+
+plot2 <- data_input(file="D:/Josefina/paper_git/paper_exposure_model/code_02/input_madrid.txt")
+htmlwidgets::saveWidget(plot2 , "func_alternative_trajectories_PLOT_paper_car_07_MADRID5.html")
+
+
+plot3 <- data_input(file="D:/Josefina/paper_git/paper_exposure_model/code_02/input_mex.txt")
+htmlwidgets::saveWidget(plot2 , "func_alternative_trajectories_PLOT_paper_car_07_mex.html")

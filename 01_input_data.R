@@ -1,0 +1,89 @@
+
+# A function that allows entering data in .txt or .csv format
+# Only the file path needs to be entered
+data_input <- function(file){
+  #Librerias
+  library(dplyr)
+  library(leaflet)
+  library(htmltools)
+  library(sf)
+  library(sp)
+  library(lubridate)
+  library(RColorBrewer)
+  library(httr)
+  library(jsonlite)
+  library(rgdal)
+  library(maptools)
+ type <-  substring(file, nchar(file) - 2)
+# Reading the file line by line."
+  if(type=="txt"){
+    line <- readLines(file, warn=FALSE)
+    len_line <- length(line)
+    travel_list <- data.frame()
+    number_dest <- gsub("\\s+", "",as.character(strsplit((strsplit(line[11], "=")[[1]][2]), ",")[[1]]))
+    for(x in 1:(as.numeric(number_dest)+1)){
+      # oordinates
+      latitude  <- as.numeric(strsplit((strsplit(line[1], "=")[[1]][2]), ",")[[1]][x])
+      longitude  <- as.numeric(strsplit((strsplit(line[2], "=")[[1]][2]), ",")[[1]][x])
+      df_coords <- data.frame(long = longitude,lat = latitude)
+      travel_list  <- rbind (travel_list,df_coords)
+      
+    }
+    activity_time <- data.frame()
+    for(x in 1:(as.numeric(number_dest))){
+      df_activity_minutes   <- gsub("\\s+", "",as.character(strsplit((strsplit(line[8], "=")[[1]][2]), ",")[[1]][x]))
+      activity_time  <- rbind (activity_time,df_activity_minutes)
+      names (activity_time) <- "activity_minutes"
+    }
+    modes   <- gsub("\\s+", "",strsplit((strsplit(line[4], "=")[[1]][2]), ",")[[1]])
+    route_selection   <- gsub("\\s+", "",strsplit((strsplit(line[6], "=")[[1]][2]), ",")[[1]])
+    API_key  <- gsub("\\s+", "",strsplit((strsplit(line[3], "=")[[1]][2]), ",")[[1]])
+    path   <- gsub("\\s+", "",strsplit((strsplit(line[5], "=")[[1]][2]), ",")[[1]])
+    departure_time   <- strsplit((strsplit(line[7], "= ")[[1]][2]), ",")[[1]]
+    pollutant  <- gsub("\\s+", "",strsplit((strsplit(line[9], "=")[[1]][2]), ",")[[1]])
+    ID   <- gsub("\\s+", "",strsplit((strsplit(line[10], "=")[[1]][2]), ",")[[1]])
+    shapeValue   <- gsub("\\s+", "",strsplit((strsplit(line[12], "=")[[1]][2]), ",")[[1]])
+    units   <- gsub("\\s+", "",strsplit((strsplit(line[13], "=")[[1]][2]), ",")[[1]])
+    output   <- gsub("\\s+", "",strsplit((strsplit(line[14], "=")[[1]][2]), ",")[[1]])
+  }
+ else if(type=="csv"){
+   data <- read.csv(file)
+   number_dest <- as.numeric(data[data$variable == "num_destinos",2])
+   travel_list <- data.frame()
+   for(x in 1:(as.numeric(number_dest)+1)){
+     latitude <- as.numeric(strsplit(data[data$variable == "latitud",2],",")[[1]][x])
+     longitude <- as.numeric(strsplit(data[data$variable == "longitud",2],",")[[1]][x])
+     df_coords <- data.frame(long = longitude,lat = latitude)
+     travel_list  <- rbind (travel_list,df_coords)
+   }
+   activity_time <- data.frame()
+   for(x in 1:(as.numeric(number_dest))){
+     df_activity_minutes <- as.numeric(strsplit(data[data$variable == "activity_minutes",2],",")[[1]][x])
+     activity_time  <- rbind (activity_time,df_activity_minutes)
+     names (activity_time) <- "activity_minutes"
+   }
+   modes <- gsub("\\s+", "",strsplit(data[data$variable == "mode",2],",")[[1]])
+   route_selection <- gsub("\\s+", "",strsplit(data[data$variable == "selection",2],",")[[1]])
+   API_key <- gsub("\\s+", "",strsplit(data[data$variable == "key",2],","))
+   path <- gsub("\\s+", "",strsplit(data[data$variable == "dir",2],","))
+   departure_time <- strsplit(data[data$variable == "departure_time_home",2],",")[[1]]
+   pollutant <- gsub("\\s+", "",strsplit(data[data$variable == "pollutant",2],","))
+   ID <- gsub("\\s+", "",strsplit(data[data$variable == "gridID",2],","))
+   shapeValue <- gsub("\\s+", "",strsplit(data[data$variable == "shapeValue",2],","))
+   units <- gsub("\\s+", "",strsplit(data[data$variable == "units",2],","))
+   output <- gsub("\\s+", "",strsplit(data[data$variable == "output",2],","))
+   
+ }
+  setwd(path)
+   
+  
+  ### 
+  example_plot <- total_exposure (travel_list=travel_list, mode=modes, dir=path,
+                                  key=API_key,selection=route_selection,output_exp= output,
+                                  departure_time_home=departure_time, activity_minutes=activity_time, shapeValue=shapeValue,gridID=ID,
+                                  pollutant = pollutant, units=units)
+  
+  return(example_plot)
+}
+
+
